@@ -1,5 +1,8 @@
 #include "./Framebuffer.hpp"
 
+namespace lazy {
+namespace graphics {
+
 Framebuffer::Framebuffer()
     : _fbo(-1), _rbo(-1), _dbo(-1)
 {}
@@ -106,4 +109,8 @@ void Framebuffer::unbind()
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
         std::cout << "Framebuffer error" << "\n";
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+}
+
 }

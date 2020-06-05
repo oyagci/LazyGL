@@ -177,7 +177,7 @@ namespace lazy
 			return *this;
 		}
 
-		void Mesh::draw()
+		void Mesh::draw() const
 		{
 			glBindVertexArray(vao);
 			glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);

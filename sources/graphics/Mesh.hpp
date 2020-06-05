@@ -49,7 +49,7 @@ namespace lazy
 
 			Mesh &build();
 
-			void draw();
+			void draw() const;
 		};
 	}
 }

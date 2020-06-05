@@ -16,12 +16,12 @@ namespace lazy
 		{
 		private:
 			enum Planes {
-				TOP = 0,
-				BOTTOM = 1,
-				LEFT = 2,
-				RIGHT = 3,
-				FAR = 4,
-				NEAR = 5,
+				TOP 	= 0,
+				BOTTOM	= 1,
+				LEFT	= 2,
+				RIGHT	= 3,
+				FAR		= 4,
+				NEAR	= 5,
 			};
 			
 		private:
@@ -33,7 +33,6 @@ namespace lazy
 			float										near;
 			float										far;
 			glm::mat4									projection;
-			std::array<glm::vec3, 8>					frustumPoints;
 			std::array<std::pair<glm::vec3, float>, 6>	frustumPlanes;
 
 			void updateFrustum();
@@ -73,8 +72,6 @@ namespace lazy
 				FAR_BOTTOM_LEFT,
 				FAR_BOTTOM_RIGHT,
 			};
-
-			std::array<glm::vec3, 8> getFrustumPoints() const { return frustumPoints; }
 		};
 	}
 }

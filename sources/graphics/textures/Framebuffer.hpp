@@ -5,6 +5,9 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 
+namespace lazy {
+	namespace graphics {
+
 class Framebuffer
 {
 private:
@@ -37,3 +40,6 @@ public:
     GLuint getColorTexture(int id) const { return _cbos[id]; }
     GLuint getDepthTexture() const { return _dbo; }
 };
+
+	}
+}

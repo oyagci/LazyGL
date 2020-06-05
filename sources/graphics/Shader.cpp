@@ -4,6 +4,7 @@
 
 #include "Shader.hpp"
 #include "utils/fileutils.hpp"
+#include <vector>
 
 namespace lazy
 {
@@ -32,11 +33,13 @@ namespace lazy
 			{
 				GLint length;
 				glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
-				GLchar *msg = new GLchar[length];
-				glGetShaderInfoLog(shader, length, &length, msg);
-				std::cout << "Shader error:\n" << msg << std::endl;
-				glDeleteShader(shader);
-				delete[] msg;
+				if (length > 0)
+				{
+					std::vector<GLchar> msg(length);
+					glGetShaderInfoLog(shader, length, &length, msg.data());
+					std::cout << " Shader error:\n" << msg.data() << std::endl;
+					glDeleteShader(shader);
+				}
 				return 0;
 			}
 			return shader;
@@ -92,6 +95,9 @@ namespace lazy
 
 			glAttachShader(program, shaders["vertex"]);
 			glAttachShader(program, shaders["fragment"]);
+			if (shaders.find("geometry") != shaders.end()) {
+				glAttachShader(program, shaders["geometry"]);
+			}
 
 			glLinkProgram(program);
 
@@ -100,13 +106,16 @@ namespace lazy
 
 			if (result == GL_FALSE)
 			{
-				GLint length;
-				glGetShaderiv(program, GL_INFO_LOG_LENGTH, &length);
-				GLchar *msg = new GLchar[length];
-				glGetShaderInfoLog(program, length, &length, msg);
-				std::cout << "Shader error:\n" << msg << std::endl;
-				glDeleteShader(program);
-				delete[] msg;
+				GLint length = 0;
+				std::cout << "Shader Link Error" << std::endl;
+				glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
+				if (length > 0) {
+					GLchar *msg = new GLchar[length];
+					glGetProgramInfoLog(program, length, &length, msg);
+					std::cout << "Shader error:\n" << msg << std::endl;
+					glDeleteShader(program);
+					delete[] msg;
+				}
 			}
 		}
 
